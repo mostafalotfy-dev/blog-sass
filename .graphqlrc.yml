@@ -1,0 +1,13 @@
+schema: graphql/schema.graphql
+documents: ./graphql
+extensions:
+  codegen:
+    generates:
+      ./generated-backend.ts:
+        plugins: []
+      ./generated-frontend.ts:
+        plugins:
+          - typescript
+          - typescript-graphql-request
+  diff:
+    baseSchema: graphql/schema.graphql

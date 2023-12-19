@@ -1,0 +1,35 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "graphql:codegen": "graphql codegen",
+    "graphql:coverage": "graphql coverage",
+    "graphql:validate": "graphql validate",
+    "graphql:diff": "graphql diff",
+    "graphql:similar": "graphql similar"
+  },
+  "devDependencies": {
+    "@graphql-cli/codegen": "3.0.4",
+    "@graphql-cli/coverage": "2.1.0",
+    "@graphql-cli/diff": "2.1.0",
+    "@graphql-cli/similar": "2.1.0",
+    "@graphql-cli/validate": "2.1.0",
+    "@graphql-codegen/typescript": "4.0.1",
+    "@graphql-codegen/typescript-graphql-request": "6.0.1",
+    "@popperjs/core": "^2.11.6",
+    "axios": "^1.6.1",
+    "bootstrap": "^5.2.3",
+    "graphql-cli": "4.1.0",
+    "laravel-vite-plugin": "^0.8.0",
+    "sass": "^1.56.1",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "alpine-router": "^0.1.2",
+    "alpinejs": "^3.13.3",
+    "nprogress": "^0.2.0",
+    "pinecone-router": "^4.0.0"
+  }
+}

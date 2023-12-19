@@ -1,0 +1,53 @@
+"Can be used as an argument to upload files using https://github.com/jaydenseric/graphql-multipart-request-spec"
+type Mutation{
+
+    createUser(user:CreateUserInputs ):Token!
+    updateUser(user:UpdateUserInputs @spread):User!  @guard
+    deleteUser:Boolean  @guard
+
+}
+
+input CreateUserInputs {
+    name:String @rules(apply:["required"]),
+    email:String @rules(apply:["required","unique:users,email","email"]),
+    user_name:String @rules(apply:["required","unique:users,user_name"]),
+    phone_number:String! @rules(apply:["required","regex:(^[+0-9]+)","unique:users,phone_number","min:11"]),
+    password:String! @rules(apply:["required"])
+
+}
+input UpdateUserInputs {
+
+
+    name:String ,
+    email:String @rules(apply:["nullable","unique:users,email","email"]),
+
+    phone_number:String @rules(apply:["nullable","regex:(^[+0-9]+)","unique:users,phone_number","min:11"]),
+    password:String @rules(apply:["nullable"])
+}
+"Indicates what fields are available at the top level of a query operation."
+
+
+type Token{
+    plainTextToken:String!
+}
+
+"Account of a person who utilizes this application."
+type User {
+    "Unique primary key."
+    id: ID!
+
+    "Non-unique name."
+    name: String!
+
+    "Unique email address."
+    email: String!
+
+    "When the email was verified."
+    email_verified_at: DateTime
+
+    "When the account was created."
+    created_at: DateTime!
+
+    "When the account was last updated."
+    updated_at: DateTime!
+}

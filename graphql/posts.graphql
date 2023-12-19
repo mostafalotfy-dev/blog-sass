@@ -1,0 +1,18 @@
+
+type Post{
+    id:ID!,
+    userId:ID!,
+    title:String!,
+    body:String!
+}
+type PostWithComments{
+    post:Post!
+    comments:[Comment!]!
+}
+type Comment {
+    postId:ID!,
+    userId:ID!,
+    name:String!,
+    email:String!,
+    body:String!
+}
