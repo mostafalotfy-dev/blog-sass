@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Rest\UserController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyBySubdomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
@@ -27,16 +28,7 @@ Route::middleware([
     Route::get('/', function () {
         return view("main");
     })->name("home");
-
+    Route::post("profile",[UserController::class,"update"])->name("profile.update");
     Route::fallback(fn()=>redirect("/"));
-
-});
-Route::middleware([
-    'web',
-    InitializeTenancyBySubDomain::class,
-    PreventAccessFromCentralDomains::class,
-])->group(function () {
- Auth::routes([
-     "register"=>false
- ]);
+    Route::post("logout",[\App\Http\Controllers\Auth\LoginController::class,"logout"])->name("logout");
 });

@@ -6,6 +6,9 @@
             @php($user =auth("web")->user())
             <div class="col-md-12">
                 <form method="post" action="{{route("profile.update")}}" @submit.prevent="profile" enctype="multipart/form-data">
+
+
+                    @csrf
                     <div class="row">
                         <div class="col-md-3">
                             <label for="name">@lang("Your Name")</label>
@@ -36,6 +39,14 @@
                                 <input type="email"  id="email" name="email" value="{{$user->email}}" class="form-control">
                             </div>
                         </div>
+                        <div class="col-md-3">
+                            <label for="password">@lang("Password")</label>
+
+                            <div class="input-group">
+
+                                <input type="password"  id="password" name="password"  x-ref="password" class="form-control">
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="file">@lang("CV File")</label>
@@ -44,12 +55,12 @@
                                 </div>
 
                             </div>
-                        </div>
-                        <div class="row">
+
+
                             <div class="col-md-3">
                                 <label for="file">@lang("Your Image")</label>
                                 <div class="input-group">
-                                    <input type="file" @change="readURL" x-ref="src" name="image" accept="image/*" id="file" class="btn form-control">
+                                    <input type="file" @change="readURL" x-ref="src" name="image" accept="image/*" id="image" class="btn form-control">
                                 </div>
                                 <img src="{{"/storage/uploads/$user->user_name/$user->image"}}" x-ref="dist" width="150" height="150" alt="@lang('portfolio')">
                             </div>

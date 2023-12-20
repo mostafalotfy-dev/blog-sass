@@ -19,7 +19,7 @@ class UserController extends Controller
             "cv" => "nullable|mimetypes:application/pdf",
             "name" => "nullable|string|min:3|max:255",
             "email" => "nullable|string|email|max:255",
-            "password" => "nullable|string|min|255",
+            "password" => "nullable|string|max:255",
             "image"=>"nullable|image",
         ]);
         $user = auth("sanctum")->user();
@@ -50,6 +50,7 @@ class UserController extends Controller
             $input["image"] = $file_name;
         }
         if ($request->password) {
+
             $input["password"] = bcrypt($input["password"]);
 
         }

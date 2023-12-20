@@ -50,8 +50,13 @@ class LoginController extends Controller
         $token = $user->createToken("sassProject")->plainTextToken;
         return \response()->json([
 
-            "redirectTo"=>str($request->getHost())->contains($user->user_name) ? route("home",["token"=>$token])  : tenant_route($user->user_name.".".$request->getHost(),"home",["token"=> $token ])
+            "redirectTo" => route("home", ["token" => $token])
         ]);
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        return redirect(route("login"));
     }
 
     /**

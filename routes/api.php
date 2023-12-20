@@ -16,4 +16,4 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-Route::post("profile",[\App\Http\Controllers\Rest\UserController::class,"update"])->name("profile.update");
+

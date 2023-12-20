@@ -122,6 +122,7 @@ document.addEventListener('alpine:init', () => {
                 .then((json) => {
                     this.successMessage = "Profile Updated Successfully";
                     this.$refs.cv.value = ""
+                    this.$refs.password.value = ""
                 });
         },
         getPost() {
