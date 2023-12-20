@@ -24,12 +24,14 @@ document.addEventListener('alpine:init', () => {
             const searchParams = new URLSearchParams(location.search);
             if (searchParams.has("token")) {
                 localStorage.setItem("token", searchParams.get("token"));
+                this.token = searchParams.get("token")
+
                 location.search = ""
-                this.token = this.token || localStorage.getItem("token")
             }
 
 
         },
+
         login(event) {
             const target = event.target;
             const form = new FormData(target);
@@ -45,10 +47,9 @@ document.addEventListener('alpine:init', () => {
 
                     this.errors = json;
                     this.token = json.token;
-
+                    localStorage.setItem("token", this.token);
 
                     if (!this.errors.message) {
-
 
                         location.replace(json.redirectTo);
                     }
@@ -58,11 +59,27 @@ document.addEventListener('alpine:init', () => {
 
             }).finally(() => this.disabled = false)
         },
+        readURL() {
+            if (this.$refs.src.files && this.$refs.src.files) {
+                var reader = new FileReader();
+                const that = this;
+                reader.onload = function (e) {
+                    that.$refs.dist.src = e.target.result;
+                    that.$refs.dist.width = "150";
+                    that.$refs.dist.height = "150";
+                    that.$refs.src.value = "";
 
+                };
 
+                reader.readAsDataURL(this.$refs.src.files[0]);
+            }
+        },
+        isAuthorized() {
+            return !!this.token;
+        },
         getPosts() {
 
-            const token = this.token || localStorage.getItem("token")
+            this.token = localStorage.getItem("token")
 
             fetch("/graphql", {
                 method: "POST",
@@ -79,12 +96,12 @@ document.addEventListener('alpine:init', () => {
                 headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${this.token}`
                 }
             }).then((res) => res.json())
                 .then(data => {
                     this.posts = data.data.posts;
-                });
+                }).catch(err=>{this.posts = {};this.token = ""});
         },
         profile(event) {
             const body = {};
@@ -110,14 +127,14 @@ document.addEventListener('alpine:init', () => {
         getPost() {
 
             const name = window.PineconeRouter.context.params.id
-            const token = localStorage.getItem("token") || this.token
+            this.token = localStorage.getItem("token") || this.token
 
             fetch("/graphql", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${this.token}`
                 },
                 body: JSON.stringify({
                     query: `{

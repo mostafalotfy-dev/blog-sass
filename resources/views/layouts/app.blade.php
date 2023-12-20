@@ -42,13 +42,17 @@
 
                         @else
                             <a href="/login" class="nav-link">@lang("Login")</a>
-                            <a href="/register" class="nav-link">@lang("Register")</a>
-                        @endauth</li>
-                    <li class="nav-item"><a class="nav-link">About</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="/profile">Profile</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="/"
-                        >Blog</a></li>
+                    </li>
+                    <li class="nav-item"> <a href="/register" class="nav-link">@lang("Register")</a></li>
+                    @endauth
+                    <template  x-if="isAuthorized()">
+                        <li class="nav-item"><a class="nav-link"  href="/profile">Profile</a></li>
+                    </template>
+                    <template  x-if="isAuthorized()">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="/"
+                            >Blog</a></li>
+                    </template>
                 </ul>
             </div>
         </div>

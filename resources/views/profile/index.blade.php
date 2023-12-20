@@ -47,6 +47,15 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
+                                <label for="file">@lang("Your Image")</label>
+                                <div class="input-group">
+                                    <input type="file" @change="readURL" x-ref="src" name="image" accept="image/*" id="file" class="btn form-control">
+                                </div>
+                                <img src="{{"/storage/uploads/$user->user_name/$user->image"}}" x-ref="dist" width="150" height="150" alt="@lang('portfolio')">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
                                 <input class="btn btn-primary" @click="successMessage = ''" :disabled="disabled" type="submit" value="@lang("Update Profile")">
                             </div>
                         </div>

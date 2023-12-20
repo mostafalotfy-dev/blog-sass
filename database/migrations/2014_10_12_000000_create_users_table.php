@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
             $table->string('user_name')->unique();
-            $table->string("file")->default("default.png");
+            $table->string("file")->default("default.pdf");
+            $table->string("image")->default("default.png");
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
