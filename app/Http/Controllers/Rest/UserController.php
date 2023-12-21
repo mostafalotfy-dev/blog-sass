@@ -20,36 +20,36 @@ class UserController extends Controller
             "name" => "nullable|string|min:3|max:255",
             "email" => "nullable|string|email|max:255",
             "password" => "nullable|string|max:255",
-            "image"=>"nullable|image",
+            "image"=>"nullable|image|dimensions:max_width=1024,max_height=1024",
         ]);
         $user = auth("sanctum")->user();
         $input = $request->only("name", "email", "password", "file","image");
 
 
         if ($request->file("file")) {
-            $file_path = public_path("storage/uploads/{$user->user_name}/$user->file");
+            $file_path = public_path("uploads/{$user->user_name}/$user->file");
             if(file_exists($file_path))
             {
                 unlink($file_path);
             }
 
             $file_name = uniqid() . "." . $input["file"]->extension();
-            $input["file"]->storePubliclyAs("public/uploads/{$user->user_name}", $file_name);
+            $input["file"]->storeAs("uploads/{$user->user_name}", $file_name);
             $input["file"] = $file_name;
         }
         if($request->file("image"))
         {
-            $file_path = public_path("storage/uploads/{$user->user_name}/$user->image");
+            $file_path = public_path("uploads/{$user->user_name}/$user->image");
                 if(file_exists($file_path))
                 {
                     unlink($file_path);
                 }
 
             $file_name = uniqid() . "." . $input["image"]->extension();
-            $input["image"]->storePubliclyAs("public/uploads/{$user->user_name}", $file_name);
+            $input["image"]->storePubliclyAs("uploads/{$user->user_name}", $file_name);
             $input["image"] = $file_name;
         }
-        if ($request->password) {
+        if ($request->has("password")) {
 
             $input["password"] = bcrypt($input["password"]);
 

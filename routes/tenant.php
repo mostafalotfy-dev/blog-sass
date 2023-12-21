@@ -29,6 +29,7 @@ Route::middleware([
         return view("main");
     })->name("home");
     Route::post("profile",[UserController::class,"update"])->name("profile.update");
-    Route::fallback(fn()=>redirect("/"));
     Route::post("logout",[\App\Http\Controllers\Auth\LoginController::class,"logout"])->name("logout");
+
+    Route::fallback(fn()=>redirect("/"));
 });

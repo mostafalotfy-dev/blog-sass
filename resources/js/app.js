@@ -67,7 +67,7 @@ document.addEventListener('alpine:init', () => {
                     that.$refs.dist.src = e.target.result;
                     that.$refs.dist.width = "150";
                     that.$refs.dist.height = "150";
-                    that.$refs.src.value = "";
+
 
                 };
 
@@ -101,7 +101,10 @@ document.addEventListener('alpine:init', () => {
             }).then((res) => res.json())
                 .then(data => {
                     this.posts = data.data.posts;
-                }).catch(err=>{this.posts = {};this.token = ""});
+                }).catch(err => {
+                this.posts = {};
+                this.token = ""
+            });
         },
         profile(event) {
             const body = {};
@@ -120,10 +123,16 @@ document.addEventListener('alpine:init', () => {
                 }
             }).then((res) => res.json())
                 .then((json) => {
+                    if (json.errors)
+                    {
+                        this.errors = json.errors
+                        return
+                    }
+                    this.errors = {};
                     this.successMessage = "Profile Updated Successfully";
                     this.$refs.cv.value = ""
                     this.$refs.password.value = ""
-                });
+                }).catch(err => this.errors = err);
         },
         getPost() {
 

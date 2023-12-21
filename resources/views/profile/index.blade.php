@@ -62,7 +62,12 @@
                                 <div class="input-group">
                                     <input type="file" @change="readURL" x-ref="src" name="image" accept="image/*" id="image" class="btn form-control">
                                 </div>
-                                <img src="{{"/storage/uploads/$user->user_name/$user->image"}}" x-ref="dist" width="150" height="150" alt="@lang('portfolio')">
+                                <template x-if="errors?.image">
+                                    <div class="alert text-danger" x-text="errors.image">
+
+                                    </div>
+                                </template>
+                                <img src="{{asset("uploads/{$user->user_name}/{$user->image}")}}" x-ref="dist" width="150" height="150" alt="@lang('portfolio')">
                             </div>
                         </div>
                         <div class="row">
