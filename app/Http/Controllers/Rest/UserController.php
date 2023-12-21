@@ -49,7 +49,7 @@ class UserController extends Controller
             $input["image"]->storePubliclyAs("uploads/{$user->user_name}", $file_name);
             $input["image"] = $file_name;
         }
-        if ($request->has("password")) {
+        if (!!$request->password) {
 
             $input["password"] = bcrypt($input["password"]);
 
